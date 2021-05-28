@@ -19,3 +19,8 @@ register(
     id='FightingiceDisplayFrameskip-v0',
     entry_point='gym_fightingice.envs:FightingiceEnv_Display_Frameskip',
 )
+
+register(
+    id='FightingiceDataTwoPlayer-v0',
+    entry_point='gym_fightingice.envs:FightingiceEnv_TwoPlayer',
+)

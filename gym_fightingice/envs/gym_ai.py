@@ -102,7 +102,10 @@ class GymAI(object):
         #print("get step in {}".format(self.pipe))
         if len(request) == 2 and request[0] == "step":
             action = request[1]
-            self.cc.commandCall(self.action_strs[action])
+            if isinstance(action,int):
+                self.cc.commandCall(self.action_strs[action])
+            else:
+                self.cc.commandCall(action)
             if not self.frameskip:
                 self.inputKey = self.cc.getSkillKey()
 

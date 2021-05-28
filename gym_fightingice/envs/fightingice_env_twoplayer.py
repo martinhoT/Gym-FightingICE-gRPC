@@ -38,7 +38,7 @@ class FightingiceEnv_TwoPlayer(gym.Env):
         _actions = "AIR AIR_A AIR_B AIR_D_DB_BA AIR_D_DB_BB AIR_D_DF_FA AIR_D_DF_FB AIR_DA AIR_DB AIR_F_D_DFA AIR_F_D_DFB AIR_FA AIR_FB AIR_GUARD AIR_GUARD_RECOV AIR_RECOV AIR_UA AIR_UB BACK_JUMP BACK_STEP CHANGE_DOWN CROUCH CROUCH_A CROUCH_B CROUCH_FA CROUCH_FB CROUCH_GUARD CROUCH_GUARD_RECOV CROUCH_RECOV DASH DOWN FOR_JUMP FORWARD_WALK JUMP LANDING NEUTRAL RISE STAND STAND_A STAND_B STAND_D_DB_BA STAND_D_DB_BB STAND_D_DF_FA STAND_D_DF_FB STAND_D_DF_FC STAND_F_D_DFA STAND_F_D_DFB STAND_FA STAND_FB STAND_GUARD STAND_GUARD_RECOV STAND_RECOV THROW_A THROW_B THROW_HIT THROW_SUFFER"
         action_strs = _actions.split(" ")
 
-        self.observation_space = spaces.Box(low=0, high=1, shape=(141,))
+        self.observation_space = spaces.Box(low=0, high=1, shape=(143,))
         self.action_space = spaces.Discrete(len(action_strs))
 
         os_name = platform.system()
@@ -98,8 +98,8 @@ class FightingiceEnv_TwoPlayer(gym.Env):
             self.need_set_memory_when_start = True
         else:
             self.start_up_str = "{}:{}:{}:{}:{}".format(
-                start_jar_path, lwjgl_path, natives_path, lib_path, ai_path)  
-            self.need_set_memory_when_start = False    
+                start_jar_path, lwjgl_path, natives_path, lib_path, ai_path)
+            self.need_set_memory_when_start = False
 
         self.game_started = False
         self.round_num = 0
@@ -126,7 +126,7 @@ class FightingiceEnv_TwoPlayer(gym.Env):
         # sleep 3s for java starting, if your machine is slow, make it longer
         time.sleep(3)
 
-    def _start_gateway(self):
+    def _start_gateway(self,p1=GymAI,p2=GymAI):
         # auto select callback server port and reset it in java env
         self.gateway = JavaGateway(gateway_parameters=GatewayParameters(
             port=self.port), callback_server_parameters=CallbackServerParameters(port=0))
@@ -144,8 +144,8 @@ class FightingiceEnv_TwoPlayer(gym.Env):
             self.p1 = GymAIDisplay(self.gateway, self.p1_client, self.frameskip)
             self.p2 = GymAIDisplay(self.gateway, self.p2_client, self.frameskip)
         else:
-            self.p1 = GymAI(self.gateway, self.p1_client, self.frameskip)
-            self.p2 = GymAI(self.gateway, self.p2_client, self.frameskip)
+            self.p1 = p1(self.gateway, self.p1_client, self.frameskip)
+            self.p2 = p2(self.gateway, self.p2_client, self.frameskip)
 
         self.manager.registerAI("P1", self.p1)
         self.manager.registerAI("P2", self.p2)
@@ -180,7 +180,7 @@ class FightingiceEnv_TwoPlayer(gym.Env):
         #del self.pipe
         self.game_started = False
 
-    def reset(self):
+    def reset(self, p1=GymAI, p2=GymAI):
         if self.p2_server is None:
             # start java game if game is not started
             if self.game_started is False:
@@ -190,7 +190,7 @@ class FightingiceEnv_TwoPlayer(gym.Env):
                 except:
                     pass
                 self._start_java_game()
-                self._start_gateway()
+                self._start_gateway(p1,p2)
 
             # to provide crash, restart java game in some freq
             if self.round_num == self.freq_restart_java * 3:  # 3 is for round in one game
