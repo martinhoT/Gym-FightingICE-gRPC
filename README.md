@@ -52,12 +52,15 @@ First, clone this repo and run the following command in the same path where "set
 $ pip install -e .
 ```
 <br />
-Then, download FightingICE from http://www.ice.ci.ritsumei.ac.jp/~ftgaic/index-2.html and extract it. The "FTGx.xx" folder should be specified in java_env_path below. <br />
+Then, download FightingICE from http://www.ice.ci.ritsumei.ac.jp/~ftgaic/index-2.html and extract it. Copy all the contents under FTGx.xx and paste them to the folder where “setup.py” is. <br />
 
 # Usage
+```bash
+Modify main.py and run main.py to start the competition (main.py should be where "setup.py" is)
+```
 Set java_env_path when calling gym.make(), for example:
 ```python
-env = gym.make("FightingiceDataNoFrameskip-v0", java_env_path="/home/your_user_name/FTG4.40")
+env = gym.make("FightingiceDataNoFrameskip-v0", java_env_path="", port=4242)
 ``` 
 or start your script in the FightingICE installed path or just change the defualt value in the source code.
 
