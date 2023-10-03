@@ -1,4 +1,4 @@
-import gym
+import gymnasium as gym
 import gym_fightingice
 import random
 from threading import Thread
@@ -9,7 +9,7 @@ from gym_fightingice.envs.gym_ai import GymAI
 
 def p_thread1(env,p1,p2):
     while True:
-        obs = env.reset(p1,p2)
+        obs = env.reset(options={"p1": p1, "p2": p2})
 
         done = False
         while not done:
@@ -17,7 +17,7 @@ def p_thread1(env,p1,p2):
 
 def p_thread2(env,p1,p2):
     while True:
-        obs = env.reset(p1,p2)
+        obs = env.reset(options={"p1": p1, "p2": p2})
 
         done = False
         while not done:

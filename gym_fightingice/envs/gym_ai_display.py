@@ -47,6 +47,10 @@ class GymAIDisplay(object):
     def getScreenData(self, sd):
         self.screenData = sd
 
+    # method should be defined when using FightingICE version 5.00 or later
+    def getAudioData(self, ad):
+        self.audioData = ad
+
     def getInformation(self, frameData, isControl):
         self.pre_framedata = frameData if self.pre_framedata is None else self.frameData
         self.frameData = frameData

@@ -21,6 +21,10 @@ class Machete(object):
   # please define this method when you use FightingICE version 4.00 or later
   def getScreenData(self, sd):
     pass
+
+  # method should be defined when using FightingICE version 5.00 or later
+  def getAudioData(self, ad):
+    pass
   
   def initialize(self, gameData, player):
     # Initializng the command center, the simulator and some other things

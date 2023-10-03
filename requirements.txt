@@ -1,0 +1,10 @@
+cloudpickle==2.2.1
+Farama-Notifications==0.0.4
+gymnasium==0.29.1
+importlib-metadata==6.8.0
+numpy==1.24.4
+opencv-python==4.8.1.78
+port-for==0.7.1
+py4j==0.10.9.7
+typing-extensions==4.8.0
+zipp==3.17.0

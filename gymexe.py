@@ -1,8 +1,8 @@
-import gym
+import gymnasium as gym
 import gym_fightingice
 import random
 
-env = gym.make("FightingiceDataNoFrameskip-v0", java_env_path="",port=4242, freq_restart_java=3)
+env = gym.make("FightingiceDataNoFrameskip-v0", java_env_path="", port=4242, freq_restart_java=3)
 
 obs = env.reset()
 while True:
